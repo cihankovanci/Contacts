@@ -45,14 +45,12 @@ npm start
     <tbody>
         <tr>
             <td><img src="Contacts/assets/Login.png" width="300" style="margin-right:30px;"/></td>
-            <td><img src=Contacts/assets/Signup.png" width="300" style="margin-right:30px;"/></td>
-            
+            <td><img src="Contacts/assets/Signup.png" width="300" style="margin-right:30px;"/></td> 
         </tr>
         <tr>
             <td><img src="Contacts/assets/Contacts.png" width="300" style="margin-right:30px;"/></td>
             <td><img src="Contacts/assets/Search.png" width="300" style="margin-right:30px;"/></td>
             <td><img src="Contacts/assets/Edit.png" width="300" style="margin-right:30px;"/></td>
         </tr>
-      
     </tbody>
 </table>
