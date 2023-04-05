@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, TextInput } from "react-native";
 import { AuthContext } from "../store/auth-context";
 import ContactsForm from "../components/ManageContacts/ContactsForm";
 import ContactsOutput from "../components/ContactsOutput/ContactsOutput";
@@ -25,6 +25,8 @@ function ContactsScreen() {
   //     getContacts();
   //   }, []);
   const [contacts, setContacts] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     // Firebase'den verileri çekmek için axios kullanabiliriz
@@ -46,7 +48,25 @@ function ContactsScreen() {
       .catch((error) => console.error("Error fetching contacts:", error));
   }, [contacts]);
 
-  return <ContactsOutput contacts={contacts} />;
+  const handleSearch = (text) => {
+    setSearchText(text);
+    const filtered = contacts.filter((item) => item.name.includes(text));
+    setFilteredData(filtered);
+  };
+
+  return (
+    <>
+      <TextInput
+        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+        onChangeText={handleSearch}
+        value={searchText}
+        placeholder="Ara..."
+      />
+      <ContactsOutput
+        contacts={filteredData.length > 0 ? filteredData : contacts}
+      />
+    </>
+  );
 }
 
 export default ContactsScreen;
