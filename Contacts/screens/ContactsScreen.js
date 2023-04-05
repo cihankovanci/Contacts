@@ -55,9 +55,9 @@ function ContactsScreen() {
   };
 
   return (
-    <>
+    <View style={styles.rootContainer}>
       <TextInput
-        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+        style={{ height: 40, borderColor: "gray", borderWidth: 1, padding: 10 }}
         onChangeText={handleSearch}
         value={searchText}
         placeholder="Ara..."
@@ -65,7 +65,7 @@ function ContactsScreen() {
       <ContactsOutput
         contacts={filteredData.length > 0 ? filteredData : contacts}
       />
-    </>
+    </View>
   );
 }
 
@@ -74,8 +74,6 @@ export default ContactsScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-
-    padding: 32,
   },
   title: {
     fontSize: 20,
