@@ -15,6 +15,9 @@ import AuthContentProvider, { AuthContext } from "../store/auth-context";
 import IconButton from "../components/UI/IconButton";
 
 import AppLoading from "expo-app-loading";
+import { View, Text } from "react-native";
+import AddScreen from "../screens/AddScreen";
+import ContactsContextProvider from "../util/contacts-context";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,17 +40,27 @@ function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
         contentStyle: { backgroundColor: Colors.primary100 },
-      }}
+      })}
     >
       <Stack.Screen
         name="Contacts"
         component={ContactsScreen}
-        options={{
+        options={({ navigation }) => ({
           headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="add"
+              color={tintColor}
+              size={24}
+              onPress={() => {
+                navigation.navigate("Add");
+              }}
+            />
+          ),
+          headerLeft: ({ tintColor }) => (
             <IconButton
               icon="exit"
               color={tintColor}
@@ -55,6 +68,16 @@ function AuthenticatedStack() {
               onPress={authCtx.logout}
             />
           ),
+        })}
+      />
+      <Stack.Screen
+        name="Add"
+        component={AddScreen}
+        options={{
+          presentation: "card",
+          gestureEnabled: true,
+          gestureDirection: "vertical",
+          headerShown: true,
         }}
       />
     </Stack.Navigator>
@@ -64,10 +87,12 @@ function AuthenticatedStack() {
 function Navigation() {
   const authCtx = useContext(AuthContext);
   return (
-    <NavigationContainer>
-      {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
-    </NavigationContainer>
+    <ContactsContextProvider>
+      <NavigationContainer>
+        {!authCtx.isAuthenticated && <AuthStack />}
+        {authCtx.isAuthenticated && <AuthenticatedStack />}
+      </NavigationContainer>
+    </ContactsContextProvider>
   );
 }
 
@@ -89,7 +114,11 @@ function Root() {
   }, []);
 
   if (isTryingLogin) {
-    return <AppLoading />;
+    return (
+      <View>
+        <Text>AppLoading</Text>
+      </View>
+    );
   }
 
   return <Navigation />;

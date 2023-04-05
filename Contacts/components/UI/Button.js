@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: Colors.primary500,
+    backgroundColor: Colors.primary50000,
     elevation: 2,
     shadowColor: "black",
     shadowOffset: { width: 1, height: 1 },
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: "center",
-    color: Colors.primary100,
+    color: Colors.primary10000,
     fontSize: 16,
     fontWeight: "bold",
   },
